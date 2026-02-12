@@ -193,6 +193,32 @@ app.delete("/clientes/:id", (req, res) => {
     res.json({ message: "Cliente eliminado correctamente" });
   });
 });
+// PATCH - Actualización parcial de cliente
+app.patch("/clientes/:id", (req, res) => {
+    const { id } = req.params;
+    const campos = req.body; 
+
+    const keys = Object.keys(campos);
+    if (keys.length === 0) {
+        return res.status(400).json({ error: "No se enviaron datos para actualizar" });
+    }
+
+    const setClause = keys.map(key => `${key} = ?`).join(", ");
+    const values = [...Object.values(campos), id];
+
+    const sql = `UPDATE clientes SET ${setClause} WHERE id = ?`;
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error en PATCH:", err);
+            return res.status(500).json({ error: "Error al actualizar" });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Cliente no encontrado" });
+        }
+        res.json({ message: "Cliente actualizado con PATCH" });
+    });
+});
 
 // Puerto
 const PORT = process.env.PORT || 5000;
