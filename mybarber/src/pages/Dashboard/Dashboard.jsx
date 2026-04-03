@@ -6,11 +6,7 @@ import Citas from "../Citas/Citas"
 import Negocio from "../Negocio/Negocio"
 import "./Dashboard.css"
 
-const API =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : "http://192.168.100.64:5000"
-
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000"
 function authHeaders() {
   const token = sessionStorage.getItem("token") || ""
   return { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }

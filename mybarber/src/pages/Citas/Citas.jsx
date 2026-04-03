@@ -1,12 +1,9 @@
 import { useState, useEffect, useCallback, Fragment, useRef } from "react"
 import "./Citas.css"
 
-const API =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : "http://192.168.100.64:5000"
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
-// Helper: headers con JWT para peticiones autenticadas
+
 function authHeaders(extra = {}) {
   const token = sessionStorage.getItem("token") || ""
   return { "Content-Type": "application/json", "Authorization": `Bearer ${token}`, ...extra }

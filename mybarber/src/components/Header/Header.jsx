@@ -1,10 +1,7 @@
 import './Header.css'
 import { useState, useRef, useEffect } from 'react'
 
-const API =
-  window.location.hostname === 'localhost'
-    ? 'http://localhost:5000'
-    : 'http://192.168.100.64:5000'
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
 // ── URL completa de la foto ──────────────────────────────────────
 function fotoUrl(ruta) {
