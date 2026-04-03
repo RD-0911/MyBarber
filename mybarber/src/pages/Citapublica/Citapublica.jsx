@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import "./CitaPublica.css"
 
-const API =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : "http://192.168.100.64:5000"
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
 const MESSENGER_PAGE_ID = "61575405185355"
 
